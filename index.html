@@ -23,7 +23,7 @@
     
     
       
-        <title>Fleet Transit Update API</title>
+        <title>Transit API</title>
       
     
     
@@ -86,7 +86,7 @@
 
 <header class="md-header md-header--shadow" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="." title="Fleet Transit Update API" class="md-header__button md-logo" aria-label="Fleet Transit Update API" data-md-component="logo">
+    <a href="." title="Transit API" class="md-header__button md-logo" aria-label="Transit API" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -100,7 +100,7 @@
       <div class="md-header__ellipsis">
         <div class="md-header__topic">
           <span class="md-ellipsis">
-            Fleet Transit Update API
+            Transit API
           </span>
         </div>
         <div class="md-header__topic" data-md-component="header-topic">
@@ -196,13 +196,13 @@
 
 <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="." title="Fleet Transit Update API" class="md-nav__button md-logo" aria-label="Fleet Transit Update API" data-md-component="logo">
+    <a href="." title="Transit API" class="md-nav__button md-logo" aria-label="Transit API" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
 
     </a>
-    Fleet Transit Update API
+    Transit API
   </label>
   
     <div class="md-nav__source">
@@ -541,9 +541,9 @@
 <p>This document describes the Transit API: the REST endpoints that information providers use to deliver road user detections to Monotch.</p>
 <p>Monotch acts as ITS Cloud Service Provider (CSP). The Transit API validates the received detections and, depending on their validity and context, publishes messages to UDAP, such as Cooperative Awareness Messages (CAMs) and priority requests for traffic light controllers.</p>
 <p>The <a href="https://monotch.com/implementation/udap/">Urban Data Access Platform (UDAP)</a> is the national platform in the Netherlands that connects actors in the smart mobility ecosystem. It enables bi-directional, continuous and real-time data exchange, is vendor-independent, and keeps control with the local (city and road) authorities.</p>
-<p>The API offers two endpoints:</p>
+<p>The API offers three endpoints:</p>
 <ul>
-<li><strong>Geofences</strong> - Retrieve the list of topologies and their bounding boxes, so that a service provider can determine whether its detection data is relevant to a specific topology</li>
+<li><strong>Geofences</strong> - Retrieve the list of topologies and their bounding boxes, so that an information provider can determine whether its detection data is relevant to a specific topology</li>
 <li><strong>Detections</strong> - Deliver detection data (location, speed, heading and route) of road users</li>
 <li><strong>History</strong> - Retrieve the processing history of a road user: accepted detections, passages, and the priority requests and CAMs published to UDAP</li>
 </ul>
@@ -627,6 +627,10 @@
 <tr>
 <td>ISO 8601</td>
 <td>International standard for date and time representation</td>
+</tr>
+<tr>
+<td>ITS</td>
+<td>Intelligent Transport Systems</td>
 </tr>
 <tr>
 <td>JSON</td>

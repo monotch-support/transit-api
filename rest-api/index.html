@@ -23,7 +23,7 @@
     
     
       
-        <title>REST API - Fleet Transit Update API</title>
+        <title>REST API - Transit API</title>
       
     
     
@@ -86,7 +86,7 @@
 
 <header class="md-header md-header--shadow" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href=".." title="Fleet Transit Update API" class="md-header__button md-logo" aria-label="Fleet Transit Update API" data-md-component="logo">
+    <a href=".." title="Transit API" class="md-header__button md-logo" aria-label="Transit API" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -100,7 +100,7 @@
       <div class="md-header__ellipsis">
         <div class="md-header__topic">
           <span class="md-ellipsis">
-            Fleet Transit Update API
+            Transit API
           </span>
         </div>
         <div class="md-header__topic" data-md-component="header-topic">
@@ -196,13 +196,13 @@
 
 <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href=".." title="Fleet Transit Update API" class="md-nav__button md-logo" aria-label="Fleet Transit Update API" data-md-component="logo">
+    <a href=".." title="Transit API" class="md-nav__button md-logo" aria-label="Transit API" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
 
     </a>
-    Fleet Transit Update API
+    Transit API
   </label>
   
     <div class="md-nav__source">
@@ -908,7 +908,7 @@
 <h1 id="rest-api">REST API</h1>
 <p>All requests and responses use JSON over HTTPS.</p>
 <p>All requests require Basic authentication in the <code>Authorization</code> header. See <a href="../authentication/">Authentication</a> for details.</p>
-<p>The endpoints are relative to the API base URL. The base URL is specific to each client and is shared together with the credentials. The examples on this page use <code>https://dummyhost.udap.nl/v1</code> as an illustrative base URL.</p>
+<p>The endpoints are relative to the API base URL. The base URL is specific to each client and is shared together with the credentials. The examples on this page use <code>https://transit-api.example.com/v1</code> as an illustrative base URL.</p>
 <h2 id="endpoints">Endpoints</h2>
 <table>
 <thead>
@@ -944,7 +944,7 @@
 </div>
 <hr />
 <h2 id="get-geofences">GET /geofences</h2>
-<p>Retrieves the list of topologies and their bounding boxes, allowing service providers to determine the relevance of their detection data to a specific topology.</p>
+<p>Retrieves the list of topologies and their bounding boxes, allowing information providers to determine the relevance of their detection data to a specific topology.</p>
 <div class="admonition note">
 <p class="admonition-title">Bounding boxes are a coarse filter</p>
 <p>The bounding box only gives a rough indication of the area of a topology. The Transit API filters the received detections more precisely, based on the bicycle lanes of the topology. Detections that do not overlap a bicycle lane are counted as <code>detectionsNoOverlap</code> in the <a href="#get-historyroaduserid">history</a> of the road user.</p>
@@ -1068,7 +1068,7 @@
 <h3 id="example">Example</h3>
 <h4 id="request_1">Request</h4>
 <div class="highlight"><pre><span></span><code><span class="nf">GET</span> <span class="nn">/v1/geofences</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
-<span class="na">Host</span><span class="o">:</span> <span class="l">dummyhost.udap.nl</span>
+<span class="na">Host</span><span class="o">:</span> <span class="l">transit-api.example.com</span>
 <span class="na">Authorization</span><span class="o">:</span> <span class="l">Basic dXNlcm5hbWU6cGFzc3dvcmQ=</span>
 </code></pre></div>
 <h4 id="response_1">Response</h4>
@@ -1130,6 +1130,7 @@
 <div class="highlight"><pre><span></span><code><span class="err">POST &lt;API </span><span class="nf">base</span> <span class="nn">URL&gt;/detections</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
 <span class="na">Host</span><span class="o">:</span> <span class="l">&lt;hostname&gt;</span>
 <span class="na">Authorization</span><span class="o">:</span> <span class="l">Basic &lt;base64-encoding of username:password&gt;</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
 </code></pre></div>
 <div class="highlight"><pre><span></span><code><span class="p">[</span>
 <span class="w">  </span><span class="p">{</span>
@@ -1236,8 +1237,9 @@
 <h3 id="example_1">Example</h3>
 <h4 id="request_3">Request</h4>
 <div class="highlight"><pre><span></span><code><span class="nf">POST</span> <span class="nn">/v1/detections</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
-<span class="na">Host</span><span class="o">:</span> <span class="l">dummyhost.udap.nl</span>
+<span class="na">Host</span><span class="o">:</span> <span class="l">transit-api.example.com</span>
 <span class="na">Authorization</span><span class="o">:</span> <span class="l">Basic dXNlcm5hbWU6cGFzc3dvcmQ=</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
 </code></pre></div>
 <div class="highlight"><pre><span></span><code><span class="p">[</span>
 <span class="w">  </span><span class="p">{</span>
@@ -1475,7 +1477,7 @@
 <h3 id="example_2">Example</h3>
 <h4 id="request_5">Request</h4>
 <div class="highlight"><pre><span></span><code><span class="nf">GET</span> <span class="nn">/v1/history/dcaa2556-02b0-4344-aaef-d52a60520fb5</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
-<span class="na">Host</span><span class="o">:</span> <span class="l">dummyhost.udap.nl</span>
+<span class="na">Host</span><span class="o">:</span> <span class="l">transit-api.example.com</span>
 <span class="na">Authorization</span><span class="o">:</span> <span class="l">Basic dXNlcm5hbWU6cGFzc3dvcmQ=</span>
 </code></pre></div>
 <h4 id="response_4">Response</h4>
