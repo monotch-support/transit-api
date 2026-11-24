@@ -947,7 +947,7 @@
 <p>Retrieves the list of topologies and their bounding boxes, allowing service providers to determine the relevance of their detection data to a specific topology.</p>
 <div class="admonition note">
 <p class="admonition-title">Bounding boxes are a coarse filter</p>
-<p>The bounding box only gives a rough indication of the area of a topology. UDAP filters the received detections more precisely, based on the bicycle lanes of the topology. Detections that do not overlap a bicycle lane are counted as <code>detectionsNoOverlap</code> in the <a href="#get-historyroaduserid">history</a> of the road user.</p>
+<p>The bounding box only gives a rough indication of the area of a topology. The Transit API filters the received detections more precisely, based on the bicycle lanes of the topology. Detections that do not overlap a bicycle lane are counted as <code>detectionsNoOverlap</code> in the <a href="#get-historyroaduserid">history</a> of the road user.</p>
 </div>
 <h3 id="request">Request</h3>
 <div class="highlight"><pre><span></span><code><span class="err">GET &lt;API </span><span class="nf">base</span> <span class="nn">URL&gt;/geofences</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
@@ -1120,7 +1120,7 @@
 <div class="admonition info">
 <p class="admonition-title">Keep-alive</p>
 <p>Send a payload with an empty array (<code>[]</code>) every 30 seconds if there are no valid detections to post. The 30-second interval applies per client connection, not per road user: any posted detections reset it.</p>
-<p>The keep-alive is used for monitoring only: it lets us detect whether a client is still alive. A missed keep-alive has no other effect.</p>
+<p>The keep-alive is used for monitoring only: it lets Monotch detect whether a client is still alive. A missed keep-alive has no other effect.</p>
 </div>
 <div class="admonition warning">
 <p class="admonition-title">Request size limit</p>
@@ -1272,7 +1272,7 @@
 </code></pre></div>
 <hr />
 <h2 id="get-historyroaduserid">GET /history/{roadUserId}</h2>
-<p>Retrieves the processing history of a road user: how many of its detections were received and accepted, and which traffic light controllers it passed, including the priority requests and CAMs that UDAP sent on its behalf.</p>
+<p>Retrieves the processing history of a road user: how many of its detections were received and accepted, and which traffic light controllers it passed, including the priority requests and CAMs that the Transit API published to UDAP on its behalf.</p>
 <div class="admonition info">
 <p class="admonition-title">History is built periodically</p>
 <p>The history is rebuilt every minute. Changes take about 3 minutes to become visible. Until the first history of a road user has been built, the endpoint returns <code>404 Not Found</code>.</p>
@@ -1422,13 +1422,13 @@
 <td><code>passages.camsPublished</code></td>
 <td>integer</td>
 <td>Yes</td>
-<td>Number of Cooperative Awareness Messages (CAMs) published for the road user during the passage</td>
+<td>Number of Cooperative Awareness Messages (CAMs) published to UDAP for the road user during the passage</td>
 </tr>
 <tr>
 <td><code>passages.srm0</code></td>
 <td>array of objects</td>
 <td>Yes</td>
-<td>Soft priority requests (SRMs) sent on behalf of the road user</td>
+<td>Soft priority requests (SRMs) published to UDAP on behalf of the road user</td>
 </tr>
 <tr>
 <td><code>passages.srm0.sentAt</code></td>
