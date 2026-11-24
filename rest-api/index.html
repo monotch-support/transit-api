@@ -463,6 +463,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#validation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Validation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#response_2" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -746,6 +757,17 @@
     <span class="md-ellipsis">
       
         Request
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#validation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Validation
       
     </span>
   </a>
@@ -1126,6 +1148,10 @@
 <p class="admonition-title">Request size limit</p>
 <p>The request body must not exceed 60 KB.</p>
 </div>
+<div class="admonition warning">
+<p class="admonition-title">Send detections immediately</p>
+<p>A detection is only processed if it arrives within 2 seconds of its <code>detectionTime</code>. Detections that are older, or that lie in the future, are rejected. Send each detection as soon as it is made, do not buffer detections to send them later, and keep the clock of the sending system synchronised (for example with NTP).</p>
+</div>
 <h3 id="request_2">Request</h3>
 <div class="highlight"><pre><span></span><code><span class="err">POST &lt;API </span><span class="nf">base</span> <span class="nn">URL&gt;/detections</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
 <span class="na">Host</span><span class="o">:</span> <span class="l">&lt;hostname&gt;</span>
@@ -1172,7 +1198,7 @@
 <td><code>detectionTime</code></td>
 <td>string</td>
 <td>Yes</td>
-<td>Time of the detection, ISO 8601 formatted in UTC (e.g. <code>2025-01-29T12:00:00Z</code>)</td>
+<td>Time of the detection, ISO 8601 formatted in UTC (e.g. <code>2025-01-29T12:00:00Z</code>); must be within 2 seconds of the time the request is received</td>
 </tr>
 <tr>
 <td><code>detection</code></td>
@@ -1196,7 +1222,7 @@
 <td><code>detection.speed</code></td>
 <td>double</td>
 <td>No (nullable)</td>
-<td>Speed of the road user in meters per second</td>
+<td>Speed of the road user in meters per second; must not be negative</td>
 </tr>
 <tr>
 <td><code>detection.heading</code></td>
@@ -1230,6 +1256,15 @@
 </tr>
 </tbody>
 </table>
+<h3 id="validation">Validation</h3>
+<p>A detection is rejected when:</p>
+<ul>
+<li><code>roadUserId</code> is missing or empty</li>
+<li><code>detectionTime</code>, <code>detection</code>, <code>detection.latitude</code> or <code>detection.longitude</code> is missing</li>
+<li><code>detection.speed</code> is negative</li>
+<li><code>detectionTime</code> is more than 2 seconds before or after the time the request is received</li>
+</ul>
+<p>Valid detections are matched against the bicycle lanes of the topologies. Only detections on a bicycle lane result in messages to UDAP. See <a href="#get-historyroaduserid"><code>GET /history/{roadUserId}</code></a> to check how the detections of a road user were processed.</p>
 <h3 id="response_2">Response</h3>
 <div class="highlight"><pre><span></span><code><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
 </code></pre></div>
