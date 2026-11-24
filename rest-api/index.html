@@ -1268,7 +1268,7 @@
 <h3 id="response_2">Response</h3>
 <div class="highlight"><pre><span></span><code><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
 </code></pre></div>
-<p>A successful request returns no response body.</p>
+<p>The response has no body. Every request is accepted with <code>200 OK</code>: detections are validated after the request has been accepted, so a <code>200 OK</code> does not mean that the detections are valid. Use <a href="#get-historyroaduserid"><code>GET /history/{roadUserId}</code></a> to see whether detections were rejected (<code>detectionsRejected</code>) or did not overlap a bicycle lane (<code>detectionsNoOverlap</code>).</p>
 <h3 id="example_1">Example</h3>
 <h4 id="request_3">Request</h4>
 <div class="highlight"><pre><span></span><code><span class="nf">POST</span> <span class="nn">/v1/detections</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
